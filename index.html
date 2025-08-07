@@ -1,26 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Benjamin Kolicic – CV</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benjamin Kolicic — CV</title>
   <style>
-    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 1em; }
-    h1 { border-bottom: 1px solid #ddd; }
+    /* Global styles */
+    body, html { margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; color: #000; background: #fff; }
+    a { color: inherit; text-decoration: none; }
+    section { padding: 4rem 2rem; max-width: 900px; margin: 0 auto; }
+
+    /* Parallax header */
+    .parallax {
+      background-image: url('images/banner.jpg');
+      height: 60vh;
+      background-attachment: fixed;
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    }
+    .parallax .overlay {
+      background: rgba(0,0,0,0.4);
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+    }
+    .parallax h1 {
+      font-size: 3rem;
+      z-index: 1;
+      margin: 0;
+    }
+    .parallax p {
+      font-size: 1.2rem;
+      z-index: 1;
+      margin: 0.5rem 0 0;
+    }
+
+    /* Two-image gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .gallery img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 2px solid #000;
+    }
+
+    /* Section headings */
+    h2 { border-bottom: 2px solid #000; padding-bottom: 0.5rem; margin-bottom: 1.5rem; }
+
+    /* Lists and details */
+    .contact { text-align: center; margin-top: -2rem; background: #fff; padding: 1rem 2rem; display: inline-block; border: 1px solid #000; }
+    .contact a { margin: 0 1rem; }
+    .timeline { list-style: none; padding: 0; }
+    .timeline li { margin-bottom: 1rem; }
+    .timeline li span.date { font-weight: bold; margin-right: 0.5rem; }
   </style>
 </head>
 <body>
-  <h1>Benjamin Kolicic</h1>
-  <p><strong>Email:</strong> benjamin@example.com</p>
-  <h2>Education</h2>
-  <ul>
-    <li>MMath Mathematics, Durham University (2021–2025)</li>
-  </ul>
-  <h2>Experience</h2>
-  <ul>
-    <li>AI Research Intern, Alan Turing Institute, Summer 2024</li>
-    <li>Solar Research Intern, University of Durham, Fall 2024</li>
-  </ul>
-  <!-- Add more sections as you wish -->
+  <!-- Parallax Banner -->
+  <header class="parallax">
+    <div class="overlay"></div>
+    <div>
+      <h1>Benjamin Kolicic</h1>
+      <p>MSc (Hons) Mathematics & Computation | BSc (Hons) Mathematics</p>
+    </div>
+  </header>
+
+  <!-- Contact info overlay -->
+  <div class="contact">
+    <a href="mailto:bkolicic@gmail.com">bkolicic@gmail.com</a> | <a href="tel:+447943941452">+44 7943 941 452</a>
+  </div>
+
+  <!-- Education Section -->
+  <section>
+    <h2>Education</h2>
+    <ul class="timeline">
+      <li><span class="date">2025–2026</span> MSc (Hons) Mathematics and Computation, London School of Economics</li>
+      <li><span class="date">2022–2025</span> BSc (Hons) Mathematics, University of Durham — First Class Honours</li>
+    </ul>
+  </section>
+
+  <!-- Publications -->
+  <section>
+    <h2>Publications</h2>
+    <p><em>Inherently Interpretable and Uncertainty-Aware Models for Online Learning in Cyber-Security Problems</em><br>
+    Proceedings of ACSAC Workshops, IEEE 2024. DOI: 10.1109/ACSACW65225.2024.00009</p>
+  </section>
+
+  <!-- Experience Section -->
+  <section>
+    <h2>Experience</h2>
+    <ul class="timeline">
+      <li><span class="date">Jul–Oct 2025</span> Artificial Intelligence Researcher, NICT, Tokyo — Reinforcement learning frameworks in finance</li>
+      <li><span class="date">Oct 2024–Mar 2025</span> Quantitative Finance Researcher, Durham University Finance Society — Heston model optimization</li>
+      <li><span class="date">Jul–Aug 2024</span> AI Researcher, The Alan Turing Institute, London — Interpretable ML and paper lead author</li>
+      <li><span class="date">Sep–Oct 2024</span> Solar Research Intern, University of Durham — Solar open magnetic flux analysis</li>
+    </ul>
+
+    <!-- Two additional images -->
+    <div class="gallery">
+      <img src="images/photo1.jpg" alt="Project or event photo 1">
+      <img src="images/photo2.jpg" alt="Project or event photo 2">
+    </div>
+  </section>
+
+  <!-- Skills & Interests -->
+  <section>
+    <h2>Skills & Interests</h2>
+    <p><strong>Computing:</strong> Python (NumPy, PyTorch), R, C#, HTML, LaTeX</p>
+    <p><strong>Music:</strong> First Desk Violist, Conductor</p>
+    <p><strong>Volunteering & Certificates:</strong> Rays of Sunshine; JPMorgan Chase Simulation</p>
+  </section>
 </body>
 </html>
