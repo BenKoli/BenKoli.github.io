@@ -34,15 +34,32 @@
       will-change: transform;
     }
     
+    /* Clickable background overlay - sits above bg but below content */
+    .parallax-clickable {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .parallax-clickable:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    
     .parallax .overlay {
       background: rgba(0,0,0,0.4);
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
-      z-index: 1;
+      z-index: 2;
+      pointer-events: none; /* Allow clicks to pass through to clickable layer */
     }
     
     .parallax-content {
-      z-index: 2;
+      z-index: 3; /* Higher than clickable layer */
       position: relative;
       text-align: center;
     }
@@ -87,6 +104,7 @@
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       position: relative;
       overflow: hidden;
+      z-index: 4; /* Highest z-index for links to work */
     }
     
     .contact-overlay::before {
@@ -116,7 +134,7 @@
       border-radius: 8px;
       transition: all 0.3s ease;
       position: relative;
-      z-index: 2;
+      z-index: 5; /* Ensure links are clickable */
       display: inline-block;
     }
     
@@ -216,6 +234,8 @@
   <!-- Parallax Banner -->
   <header class="parallax" id="parallax-header">
     <div class="parallax-bg" id="parallax-bg"></div>
+    <!-- Clickable background layer -->
+    <div class="parallax-clickable" id="parallax-clickable"></div>
     <div class="overlay"></div>
     <div class="parallax-content">
       <h1>Benjamin Kolicic</h1>
@@ -309,8 +329,25 @@
       const parallaxBg = document.getElementById('parallax-bg');
       const parallaxHeader = document.getElementById('parallax-header');
       const contactOverlay = document.querySelector('.contact-overlay');
+      const parallaxClickable = document.getElementById('parallax-clickable');
       
       if (!parallaxBg || !parallaxHeader) return;
+      
+      // Add click handler for the background
+      if (parallaxClickable) {
+        parallaxClickable.addEventListener('click', function(e) {
+          // Only trigger if the click didn't come from a child element (like contact links)
+          if (e.target === parallaxClickable) {
+            // Replace this with your desired action
+            console.log('Background clicked!');
+            // Example: scroll to next section
+            document.querySelector('section').scrollIntoView({ behavior: 'smooth' });
+            
+            // Or open a link:
+            // window.open('https://your-link-here.com', '_blank');
+          }
+        });
+      }
       
       function updateParallax() {
         const scrolled = window.pageYOffset;
