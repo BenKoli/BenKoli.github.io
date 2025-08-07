@@ -339,12 +339,9 @@
           // Only trigger if the click didn't come from a child element (like contact links)
           if (e.target === parallaxClickable) {
             // Replace this with your desired action
-            console.log('Background clicked!');
+            window.open('https://www.linkedin.com/feed/update/urn:li:activity:7251001297313632257/', '_blank');
             // Example: scroll to next section
-            document.querySelector('section').scrollIntoView({ behavior: 'smooth' });
-            
-            // Or open a link:
-            // window.open('https://your-link-here.com', '_blank');
+            //document.querySelector('section').scrollIntoView({ behavior: 'smooth' });
           }
         });
       }
