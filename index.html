@@ -218,41 +218,7 @@
     html {
       scroll-behavior: smooth;
     }
-
-    /* Video player styles */
-    .video-container {
-      margin-top: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .video-container video {
-      width: 100%;
-      max-width: 900px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-      background: #000;
-    }
-    .video-controls {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .video-controls .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      border: 1px solid #000;
-      background: #fff;
-      cursor: pointer;
-      font-weight: 600;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .video-controls .btn:active { transform: translateY(1px); }
-
+    
     /* Responsive design */
     @media (max-width: 768px) {
       .parallax h1 { font-size: 2rem; }
@@ -367,25 +333,6 @@
     </ul>
   </section>
 
-  <!-- Media Section (MP4) inserted after Experience -->
-  <section>
-    <h2>Media</h2>
-    <div class="video-container">
-      <!-- Change the src attribute to the path of your MP4 file -->
-      <video id="intro-video" preload="metadata" poster="images/video-poster.jpg">
-        <source src="media/benjamin_presentation.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-
-      <!-- Simple play/pause controls (custom) -->
-      <div class="video-controls" aria-label="Video controls">
-        <button id="play" type="button" class="btn">Play</button>
-        <button id="pause" type="button" class="btn">Pause</button>
-        <button id="mute-toggle" type="button" class="btn">Mute</button>
-      </div>
-    </div>
-  </section>
-
   <!-- Skills & Interests -->
   <section>
     <h2>Skills & Interests</h2>
@@ -477,60 +424,6 @@
     document.querySelectorAll('.timeline li, h2').forEach(item => {
       observer.observe(item);
     });
-
-    // VIDEO: basic play/pause/mute controls
-    (function setupVideoControls(){
-      const video = document.getElementById('intro-video');
-      const playBtn = document.getElementById('play');
-      const pauseBtn = document.getElementById('pause');
-      const muteToggle = document.getElementById('mute-toggle');
-
-      if (!video) return;
-
-      // If the user prefers the native controls, you can add the `controls` attribute directly in the <video> tag.
-      // We're using custom buttons here for explicit Play and Pause as requested.
-
-      playBtn.addEventListener('click', () => {
-        video.play();
-      });
-
-      pauseBtn.addEventListener('click', () => {
-        video.pause();
-      });
-
-      muteToggle.addEventListener('click', () => {
-        video.muted = !video.muted;
-        muteToggle.textContent = video.muted ? 'Unmute' : 'Mute';
-      });
-
-      // Keyboard accessibility: space toggles play/pause when video is focused
-      video.tabIndex = 0;
-      video.addEventListener('keydown', (e) => {
-        if (e.code === 'Space' || e.key === ' ') {
-          e.preventDefault();
-          if (video.paused) video.play(); else video.pause();
-        }
-      });
-
-      // Update buttons state when video is played/paused by other means
-      video.addEventListener('play', () => {
-        playBtn.disabled = true;
-        pauseBtn.disabled = false;
-      });
-      video.addEventListener('pause', () => {
-        playBtn.disabled = false;
-        pauseBtn.disabled = true;
-      });
-
-      // Initialize state
-      if (video.paused) {
-        playBtn.disabled = false;
-        pauseBtn.disabled = true;
-      } else {
-        playBtn.disabled = true;
-        pauseBtn.disabled = false;
-      }
-    })();
   </script>
 </body>
 </html>
