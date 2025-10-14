@@ -218,7 +218,21 @@
     html {
       scroll-behavior: smooth;
     }
-    
+
+    /* Responsive embedded YouTube: Option 1 styling */
+    /* Make the iframe inherit the same width as the list/sections */
+    #media { max-width: 900px; margin: 0 auto; padding: 0; }
+    #media .media-wrapper { width: 100%; }
+    #media iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      height: auto; /* fallback for older browsers */
+      display: block;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
     /* Responsive design */
     @media (max-width: 768px) {
       .parallax h1 { font-size: 2rem; }
@@ -333,13 +347,19 @@
     </ul>
   </section>
 
+  <!-- Media Section (YouTube embed, responsive to match list width) -->
   <section id="media">
-  <iframe
-    src="https://www.youtube.com/embed/-IhuFgiWNS4"
-    frameborder="0"
-    allowfullscreen>
-  </iframe>
-</section>
+    <h2>Media</h2>
+    <div class="media-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/-IhuFgiWNS4"
+        title="Benjamin Kolicic Introduction Video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
 
   <!-- Skills & Interests -->
   <section>
