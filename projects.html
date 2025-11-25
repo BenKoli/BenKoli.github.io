@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benjamin Kolicic - Projects</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <style>
+    /* Global styles */
+    body, html { margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; color: #000; background: #fff; }
+    a { color: inherit; text-decoration: none; }
+    
+    /* Parallax header - matching main page */
+    .parallax {
+      height: 60vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    }
+    
+    .parallax-bg {
+      position: absolute;
+      top: 0%;
+      left: 0;
+      right: 0;
+      bottom: -50%;
+      background-image: url('images/Screenshot 2024-12-13 122627.png');
+      background-size: cover;
+      background-position: center;
+      will-change: transform;
+    }
+    
+    .parallax .overlay {
+      background: rgba(0,0,0,0);
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 2;
+    }
+    
+    .parallax-content {
+      z-index: 3;
+      position: relative;
+      text-align: center;
+    }
+    
+    .parallax h1 {
+      font-size: 3rem;
+      margin: 0;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease-out 0.5s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Back button in top-right */
+    .back-button {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.3s forwards;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Filter buttons section */
+    .filter-section {
+      max-width: 900px;
+      margin: 3rem auto 2rem;
+      padding: 0 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid #000;
+      background: #fff;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .filter-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.1);
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+    
+    .filter-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .filter-btn.active {
+      background: #000;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .filter-btn span {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Projects timeline */
+    .projects-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    
+    /* Vertical line */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #667eea, #764ba2);
+    }
+    
+    .project-item {
+      position: relative;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      background: #f9f9f9;
+      border-radius: 12px;
+      border-left: 4px solid #667eea;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateX(-30px);
+      animation: slideIn 0.6s ease-out forwards;
+    }
+    
+    .project-item:nth-child(1) { animation-delay: 0.1s; }
+    .project-item:nth-child(2) { animation-delay: 0.2s; }
+    .project-item:nth-child(3) { animation-delay: 0.3s; }
+    .project-item:nth-child(4) { animation-delay: 0.4s; }
+    .project-item:nth-child(5) { animation-delay: 0.5s; }
+    .project-item:nth-child(6) { animation-delay: 0.6s; }
+    
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .project-item:hover {
+      transform: translateX(10px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      background: #fff;
+    }
+    
+    .project-item.hidden {
+      display: none;
+    }
+    
+    /* Colored tags */
+    .project-tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: #fff;
+    }
+    
+    .tag-1 { background: #667eea; }
+    .tag-2 { background: #f093fb; }
+    .tag-3 { background: #4facfe; }
+    
+    .project-item[data-tag="tag-1"] { border-left-color: #667eea; }
+    .project-item[data-tag="tag-2"] { border-left-color: #f093fb; }
+    .project-item[data-tag="tag-3"] { border-left-color: #4facfe; }
+    
+    .project-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0 0 0.5rem 0;
+    }
+    
+    .project-date {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .project-description {
+      line-height: 1.6;
+      color: #333;
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .parallax h1 { font-size: 2rem; }
+      .back-button {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
+      .filter-section {
+        padding: 0 1rem;
+        margin: 2rem auto 1rem;
+      }
+      .filter-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+      .projects-container {
+        padding: 1rem;
+      }
+      .timeline {
+        padding-left: 1rem;
+      }
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  <!-- Parallax Banner -->
+  <header class="parallax" id="parallax-header">
+    <div class="parallax-bg" id="parallax-bg"></div>
+    <div class="overlay"></div>
+    <a href="index.html" class="back-button">← Back to CV</a>
+    <div class="parallax-content">
+      <h1>My Projects</h1>
+    </div>
+  </header>
+
+  <!-- Filter buttons -->
+  <div class="filter-section">
+    <button class="filter-btn active" data-filter="all" onclick="filterProjects('all')">
+      <span>All Projects</span>
+    </button>
+    <button class="filter-btn" data-filter="tag-1" onclick="filterProjects('tag-1')">
+      <span>Tag 1</span>
+    </button>
+    <button class="filter-btn" data-filter="tag-2" onclick="filterProjects('tag-2')">
+      <span>Tag 2</span>
+    </button>
+    <button class="filter-btn" data-filter="tag-3" onclick="filterProjects('tag-3')">
+      <span>Tag 3</span>
+    </button>
+  </div>
+
+  <!-- Projects timeline -->
+  <div class="projects-container">
+    <div class="timeline" id="timeline">
+      
+      <div class="project-item" data-tag="tag-1">
+        <span class="project-tag tag-1">Tag 1</span>
+        <h3 class="project-title">AI Security Research</h3>
+        <p class="project-date">2025</p>
+        <p class="project-description">
+          Developed inherently interpretable machine learning models for cyber-security applications at NICT Tokyo. 
+          Published findings in IEEE ACSAC Workshop proceedings.
+        </p>
+      </div>
+
+      <div class="project-item" data-tag="tag-2">
+        <span class="project-tag tag-2">Tag 2</span>
+        <h3 class="project-title">Quantitative Trading Strategy</h3>
+        <p class="project-date">2025</p>
+        <p class="project-description">
+          Researched and implemented algorithmic trading strategies using statistical analysis and machine learning 
+          techniques with Durham University Finance Society.
+        </p>
+      </div>
+
+      <div class="project-item" data-tag="tag-1">
+        <span class="project-tag tag-1">Tag 1</span>
+        <h3 class="project-title">Alan Turing Institute Research</h3>
+        <p class="project-date">2024</p>
+        <p class="project-description">
+          Conducted AI research at the UK's national institute for data science and artificial intelligence, 
+          focusing on advanced machine learning methodologies.
+        </p>
+      </div>
+
+      <div class="project-item" data-tag="tag-3">
+        <span class="project-tag tag-3">Tag 3</span>
+        <h3 class="project-title">Castle Spaceflight Society</h3>
+        <p class="project-date">2023-2024</p>
+        <p class="project-description">
+          Founded and led university spaceflight society. Successfully launched high-altitude balloon payload 
+          reaching near-space, capturing stunning footage and scientific data.
+        </p>
+      </div>
+
+      <div class="project-item" data-tag="tag-3">
+        <span class="project-tag tag-3">Tag 3</span>
+        <h3 class="project-title">Solar Physics Research</h3>
+        <p class="project-date">2024</p>
+        <p class="project-description">
+          Analyzed solar phenomena and coronal mass ejections using advanced computational methods 
+          at Durham University's Department of Physics.
+        </p>
+      </div>
+
+      <div class="project-item" data-tag="tag-2">
+        <span class="project-tag tag-2">Tag 2</span>
+        <h3 class="project-title">Mathematical Modelling Portfolio</h3>
+        <p class="project-date">2022-2025</p>
+        <p class="project-description">
+          Developed comprehensive mathematical models across various domains including differential equations, 
+          optimization theory, and stochastic processes during undergraduate studies.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Filter functionality
+    function filterProjects(tag) {
+      const items = document.querySelectorAll('.project-item');
+      const buttons = document.querySelectorAll('.filter-btn');
+      
+      // Update active button
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset.filter === tag) {
+          btn.classList.add('active');
+        }
+      });
+      
+      // Filter projects
+      items.forEach(item => {
+        if (tag === 'all' || item.dataset.tag === tag) {
+          item.classList.remove('hidden');
+          // Restart animation
+          item.style.animation = 'none';
+          setTimeout(() => {
+            item.style.animation = 'slideIn 0.6s ease-out forwards';
+          }, 10);
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+    }
+
+    // Parallax effect
+    function initParallax() {
+      const parallaxBg = document.getElementById('parallax-bg');
+      const parallaxHeader = document.getElementById('parallax-header');
+      
+      if (!parallaxBg || !parallaxHeader) return;
+      
+      function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const headerHeight = parallaxHeader.offsetHeight;
+        const rate = scrolled * -0.5;
+        
+        if (scrolled < headerHeight) {
+          parallaxBg.style.transform = `translate3d(0, ${rate}px, 0)`;
+        }
+      }
+      
+      let ticking = false;
+      function requestTick() {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }
+      
+      window.addEventListener('scroll', () => {
+        requestTick();
+        ticking = false;
+      });
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initParallax);
+    } else {
+      initParallax();
+    }
+  </script>
+</body>
+</html>

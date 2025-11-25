@@ -93,6 +93,33 @@
       }
     }
 
+    /* Projects button in top-right */
+    .projects-button {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.3s forwards;
+    }
+    
+    .projects-button:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
     /* Enhanced contact overlay with glassmorphism */
     .contact-overlay { 
       text-align: center;
@@ -247,6 +274,12 @@
         margin: 0.5rem 0;
         padding: 0.75rem;
       }
+      .projects-button {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+      }
     }
   </style>
 </head>
@@ -257,6 +290,7 @@
     <!-- Clickable background layer -->
     <div class="parallax-clickable" id="parallax-clickable"></div>
     <div class="overlay"></div>
+    <a href="projects.html" class="projects-button">Projects →</a>
     <div class="parallax-content">
       <h1>Benjamin Kolicic</h1>
       <p>MSc (Hons) Mathematics Student</p>
@@ -272,7 +306,7 @@
     <h2>About Me</h2>
     <ul class="timeline">
       <li>
-        <p>I’m Benjamin Kolicic, a First Class Honours Mathematics graduate from the University of Durham and incoming MSc student in Mathematics and Computation at the London School of Economics.</p>
+        <p>I'm Benjamin Kolicic, a First Class Honours Mathematics graduate from the University of Durham and incoming MSc student in Mathematics and Computation at the London School of Economics.</p>
         <p>Beyond my formal education, I have held a number of research roles in AI, Finance and Physics, as well as participated in several extracurriculars: from sending a bear to space to orchestral viola playing. </p>
         <p>To learn more about me or my projects, please visit my <a href="https://www.linkedin.com/in/benjamin-kolicic-568710290/">LinkedIn</a> or click any image.</p>
       </li>
