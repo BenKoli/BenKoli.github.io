@@ -76,6 +76,7 @@
       padding: 0.6rem 1.2rem;
       color: #fff;
       font-size: 0.9rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -160,10 +161,36 @@
       content: '';
       position: absolute;
       left: 0;
-      top: 0;
-      bottom: 0;
+      top: 10px;
+      bottom: 10px;
       width: 3px;
       background: linear-gradient(to bottom, #667eea, #764ba2);
+    }
+    
+    /* Round endpoints - CENTERED */
+    .timeline::after {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 1px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #667eea;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px #667eea;
+    }
+    
+    .timeline-end {
+      position: absolute;
+      left: -7px;
+      bottom: 1px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #764ba2;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 2px #764ba2;
     }
     
     .project-item {
@@ -173,10 +200,29 @@
       background: #f9f9f9;
       border-radius: 12px;
       border-left: 4px solid #667eea;
-      transition: all 0.3s ease;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
       opacity: 0;
       transform: translateX(-30px);
-      animation: slideIn 0.6s ease-out forwards;
+      animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    /* Timeline tick marks - CENTERED, grows only to the right */
+    .project-item::before {
+      content: '';
+      position: absolute;
+      left: -2.1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 3px;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      z-index: 2;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left center;
+    }
+    
+    .project-item:hover::before {
+      width: 20px;
     }
     
     .project-item:nth-child(1) { animation-delay: 0.1s; }
@@ -214,13 +260,13 @@
       color: #fff;
     }
     
-    .tag-1 { background: #667eea; }
-    .tag-2 { background: #f093fb; }
-    .tag-3 { background: #4facfe; }
+    .tag-1 { background: #e23250; }
+    .tag-2 { background: #34f8ee; }
+    .tag-3 { background: #30dd47; }
     
-    .project-item[data-tag="tag-1"] { border-left-color: #667eea; }
-    .project-item[data-tag="tag-2"] { border-left-color: #f093fb; }
-    .project-item[data-tag="tag-3"] { border-left-color: #4facfe; }
+    .project-item[data-tag="tag-1"] { border-left-color: #e23250; }
+    .project-item[data-tag="tag-2"] { border-left-color: #34f8ee; }
+    .project-item[data-tag="tag-3"] { border-left-color: #30dd47; }
     
     .project-title {
       font-size: 1.4rem;
@@ -274,9 +320,9 @@
   <header class="parallax" id="parallax-header">
     <div class="parallax-bg" id="parallax-bg"></div>
     <div class="overlay"></div>
-    <a href="index.html" class="back-button">← Back to CV</a>
+    <a href="index.html" class="back-button">CV</a>
     <div class="parallax-content">
-      <h1>My Projects</h1>
+      <h1>Projects</h1>
     </div>
   </header>
 
@@ -299,6 +345,7 @@
   <!-- Projects timeline -->
   <div class="projects-container">
     <div class="timeline" id="timeline">
+      <div class="timeline-end"></div>
       
       <div class="project-item" data-tag="tag-1">
         <span class="project-tag tag-1">Tag 1</span>
@@ -369,13 +416,34 @@
       const items = document.querySelectorAll('.project-item');
       const buttons = document.querySelectorAll('.filter-btn');
       
-      // Update active button
+      // Update button states and colors
       buttons.forEach(btn => {
         btn.classList.remove('active');
-        if (btn.dataset.filter === tag) {
-          btn.classList.add('active');
-        }
+        // Reset button styles
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
       });
+      
+      // Set active button with appropriate color
+      const activeButton = document.querySelector(`[data-filter="${tag}"]`);
+      activeButton.classList.add('active');
+      
+      // Apply color based on tag
+      if (tag === 'tag-1') {
+        activeButton.style.background = '#667eea';
+        activeButton.style.color = '#fff';
+        activeButton.style.borderColor = '#667eea';
+      } else if (tag === 'tag-2') {
+        activeButton.style.background = '#f093fb';
+        activeButton.style.color = '#fff';
+        activeButton.style.borderColor = '#f093fb';
+      } else if (tag === 'tag-3') {
+        activeButton.style.background = '#4facfe';
+        activeButton.style.color = '#fff';
+        activeButton.style.borderColor = '#4facfe';
+      }
+      // 'all' keeps default active styling from CSS
       
       // Filter projects
       items.forEach(item => {
@@ -384,7 +452,7 @@
           // Restart animation
           item.style.animation = 'none';
           setTimeout(() => {
-            item.style.animation = 'slideIn 0.6s ease-out forwards';
+            item.style.animation = 'slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards';
           }, 10);
         } else {
           item.classList.add('hidden');
