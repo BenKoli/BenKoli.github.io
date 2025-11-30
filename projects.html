@@ -261,11 +261,11 @@
     }
     
     .tag-1 { background: #e23250; }
-    .tag-2 { background: #34f8ee; }
+    .tag-2 { background: #00fff2; }
     .tag-3 { background: #30dd47; }
     
     .project-item[data-tag="tag-1"] { border-left-color: #e23250; }
-    .project-item[data-tag="tag-2"] { border-left-color: #34f8ee; }
+    .project-item[data-tag="tag-2"] { border-left-color: #00fff2; }
     .project-item[data-tag="tag-3"] { border-left-color: #30dd47; }
     
     .project-title {
@@ -332,13 +332,13 @@
       <span>All Projects</span>
     </button>
     <button class="filter-btn" data-filter="tag-1" onclick="filterProjects('tag-1')">
-      <span>Tag 1</span>
+      <span>AI and Data Science</span>
     </button>
     <button class="filter-btn" data-filter="tag-2" onclick="filterProjects('tag-2')">
-      <span>Tag 2</span>
+      <span>Finance</span>
     </button>
     <button class="filter-btn" data-filter="tag-3" onclick="filterProjects('tag-3')">
-      <span>Tag 3</span>
+      <span>Physics</span>
     </button>
   </div>
 
@@ -348,7 +348,7 @@
       <div class="timeline-end"></div>
       
       <div class="project-item" data-tag="tag-1">
-        <span class="project-tag tag-1">Tag 1</span>
+        <span class="project-tag tag-1">AI and Data Science</span>
         <h3 class="project-title">AI Security Research</h3>
         <p class="project-date">2025</p>
         <p class="project-description">
@@ -358,7 +358,7 @@
       </div>
 
       <div class="project-item" data-tag="tag-2">
-        <span class="project-tag tag-2">Tag 2</span>
+        <span class="project-tag tag-2">Finance</span>
         <h3 class="project-title">Quantitative Trading Strategy</h3>
         <p class="project-date">2025</p>
         <p class="project-description">
@@ -368,7 +368,7 @@
       </div>
 
       <div class="project-item" data-tag="tag-1">
-        <span class="project-tag tag-1">Tag 1</span>
+        <span class="project-tag tag-1">AI and Data Science</span>
         <h3 class="project-title">Alan Turing Institute Research</h3>
         <p class="project-date">2024</p>
         <p class="project-description">
@@ -378,7 +378,7 @@
       </div>
 
       <div class="project-item" data-tag="tag-3">
-        <span class="project-tag tag-3">Tag 3</span>
+        <span class="project-tag tag-3">Physics</span>
         <h3 class="project-title">Castle Spaceflight Society</h3>
         <p class="project-date">2023-2024</p>
         <p class="project-description">
@@ -388,7 +388,7 @@
       </div>
 
       <div class="project-item" data-tag="tag-3">
-        <span class="project-tag tag-3">Tag 3</span>
+        <span class="project-tag tag-3">Physics</span>
         <h3 class="project-title">Solar Physics Research</h3>
         <p class="project-date">2024</p>
         <p class="project-description">
@@ -398,7 +398,7 @@
       </div>
 
       <div class="project-item" data-tag="tag-2">
-        <span class="project-tag tag-2">Tag 2</span>
+        <span class="project-tag tag-2">Finance</span>
         <h3 class="project-title">Mathematical Modelling Portfolio</h3>
         <p class="project-date">2022-2025</p>
         <p class="project-description">
@@ -431,17 +431,17 @@
       
       // Apply color based on tag
       if (tag === 'tag-1') {
-        activeButton.style.background = '#667eea';
+        activeButton.style.background = '#e23250';
         activeButton.style.color = '#fff';
-        activeButton.style.borderColor = '#667eea';
+        activeButton.style.borderColor = '#e23250';
       } else if (tag === 'tag-2') {
-        activeButton.style.background = '#f093fb';
+        activeButton.style.background = '#00fff2';
         activeButton.style.color = '#fff';
-        activeButton.style.borderColor = '#f093fb';
+        activeButton.style.borderColor = '#00fff2';
       } else if (tag === 'tag-3') {
-        activeButton.style.background = '#4facfe';
+        activeButton.style.background = '#30dd47';
         activeButton.style.color = '#fff';
-        activeButton.style.borderColor = '#4facfe';
+        activeButton.style.borderColor = '#30dd47';
       }
       // 'all' keeps default active styling from CSS
       
