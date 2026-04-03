@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Benjamin Kolicic - CV</title>
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicons/android-chrome-512x512.png">
   <style>
     /* Global styles */
     body, html { margin: 0; padding: 0; font-family: 'Helvetica Neue', Arial, sans-serif; color: #000; background: #fff; }
@@ -93,11 +93,9 @@
       }
     }
 
-    /* Projects button in top-right */
-    .projects-button {
+    /* Glass button shared style */
+    .glass-button {
       position: absolute;
-      top: 2rem;
-      right: 2rem;
       z-index: 10;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(15px);
@@ -107,17 +105,72 @@
       padding: 0.6rem 1.2rem;
       color: #fff;
       font-size: 0.9rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       opacity: 0;
       animation: fadeInUp 1s ease-out 0.3s forwards;
+      text-decoration: none;
+      display: inline-block;
     }
-    
-    .projects-button:hover {
+
+    .glass-button:hover {
       transform: translateY(-2px);
       background: rgba(255, 255, 255, 0.2);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Timeline button - top right */
+    .timeline-button {
+      top: 2rem;
+      right: 2rem;
+    }
+
+    /* Projects dropdown - top left */
+    .projects-dropdown {
+      top: 2rem;
+      left: 2rem;
+    }
+
+    .projects-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      padding-top: 8px;
+      min-width: 180px;
+      z-index: 20;
+    }
+
+    .projects-dropdown-menu-inner {
+      background: rgba(15, 15, 25, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .projects-dropdown:hover .projects-dropdown-menu,
+    .projects-dropdown:focus-within .projects-dropdown-menu {
+      display: block;
+    }
+
+    .projects-dropdown-menu a {
+      display: block;
+      padding: 0.7rem 1.2rem;
+      color: #fff;
+      font-size: 0.85rem;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      text-decoration: none;
+      transition: background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .projects-dropdown-menu a:hover {
+      background: rgba(255, 255, 255, 0.15);
     }
 
     /* Enhanced contact overlay with glassmorphism */
@@ -274,12 +327,17 @@
         margin: 0.5rem 0;
         padding: 0.75rem;
       }
-      .projects-button {
-        top: 1rem;
-        right: 1rem;
+      .glass-button {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
-        font-family: 'Helvetica Neue', Arial, sans-serif;
+      }
+      .timeline-button {
+        top: 1rem;
+        right: 1rem;
+      }
+      .projects-dropdown {
+        top: 1rem;
+        left: 1rem;
       }
     }
   </style>
@@ -291,7 +349,17 @@
     <!-- Clickable background layer -->
     <div class="parallax-clickable" id="parallax-clickable"></div>
     <div class="overlay"></div>
-    <a href="projects.html" class="projects-button">Projects</a>
+    <!-- Projects dropdown - top left -->
+    <div class="glass-button projects-dropdown" tabindex="0">
+      Projects
+      <div class="projects-dropdown-menu">
+        <div class="projects-dropdown-menu-inner">
+          <a href="projects/Riemann Hypothesis Knowledge Graph/rh-graph.html">Riemann Hypothesis</a>
+        </div>
+      </div>
+    </div>
+    <!-- Timeline button - top right -->
+    <a href="timeline.html" class="glass-button timeline-button">Timeline</a>
     <div class="parallax-content">
       <h1>Benjamin Kolicic</h1>
       <p>MSc (Hons) Mathematics Student</p>
