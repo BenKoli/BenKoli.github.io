@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="importmap">
+    {
+        "imports": {
+            "pixi.js": "https://cdn.jsdelivr.net/npm/pixi.js@8/dist/pixi.min.mjs"
+        }
+    }
+    </script>
+	<title>Bouncing DVD Game</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+	<style>
+		* { margin: 0; padding: 0; box-sizing: border-box; }
+		body { background: #111; }
+
+		#topnav {
+			position: fixed;
+			top: 0; left: 0; right: 0;
+			height: 56px;
+			background: #111;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 2rem;
+			z-index: 100;
+		}
+
+		#topnav .nav-title {
+			font-size: 0.95rem;
+			font-weight: 600;
+			color: #e6edf3;
+			letter-spacing: 0.03em;
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+		}
+
+		.back-button {
+			background: rgba(255, 255, 255, 0.08);
+			backdrop-filter: blur(15px);
+			-webkit-backdrop-filter: blur(15px);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			border-radius: 8px;
+			padding: 0.4rem 1rem;
+			color: #e6edf3;
+			font-size: 0.85rem;
+			font-family: 'Helvetica Neue', Arial, sans-serif;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			text-decoration: none;
+			display: inline-block;
+		}
+
+		.back-button:hover {
+			transform: translateY(-2px);
+			background: rgba(255, 255, 255, 0.15);
+			box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+			border-color: rgba(255, 255, 255, 0.25);
+		}
+	</style>
+</head>
+<body>
+	<nav id="topnav">
+		<a href="../../index.html" class="back-button">Home</a>
+		<span class="nav-title">Bouncing DVD Game</span>
+		<div style="width: 80px;"></div>
+	</nav>
+	<script type="module" src="bouncingdvd.js"></script>
+</body>
+</html>
