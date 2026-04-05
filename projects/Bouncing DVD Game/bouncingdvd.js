@@ -18,8 +18,14 @@ import { Application, Container, Graphics, Sprite, Assets, ColorMatrixFilter } f
   document.head.appendChild(style);
   document.body.appendChild(app.canvas);
 
-  const BOX_W = 640, BOX_H = 480;
   const NAV_H = 56;
+  const BASE_SCALE = Math.min(
+    1,
+    (app.screen.width  - 16) / 640,
+    (app.screen.height - NAV_H - 130) / 480
+  );
+  const BOX_W = Math.round(640 * BASE_SCALE);
+  const BOX_H = Math.round(480 * BASE_SCALE);
   let BOX_X = (app.screen.width  - BOX_W) / 2;
   let BOX_Y = NAV_H + (app.screen.height - NAV_H - BOX_H) / 2;
 
@@ -44,12 +50,12 @@ import { Application, Container, Graphics, Sprite, Assets, ColorMatrixFilter } f
   const world = new Container();
   app.stage.addChild(world);
   const boxG = new Graphics();
-  boxG.rect(BOX_X, BOX_Y, BOX_W, BOX_H).fill({ color: 0x000000 });
+  boxG.rect(BOX_X, BOX_Y, BOX_W, BOX_H).fill({ color: 0x000000 }).stroke({ color: 0xffffff, width: 2 });
   world.addChild(boxG);
 
   const texture = await Assets.load('dvd.png');
   const dvd = new Sprite(texture);
-  dvd.anchor.set(0.5); dvd.width = 120; dvd.height = 68;
+  dvd.anchor.set(0.5); dvd.width = Math.round(120 * BASE_SCALE); dvd.height = Math.round(68 * BASE_SCALE);
   const cmf = new ColorMatrixFilter();
   dvd.filters = [cmf];
   function applyColor(hex) {
@@ -65,7 +71,7 @@ import { Application, Container, Graphics, Sprite, Assets, ColorMatrixFilter } f
   world.addChild(dvd);
 
   // ── Physics ───────────────────────────────────────────────────────
-  const BS = 3.5; // increased base speed
+  const BS = 3.5 * BASE_SCALE; // increased base speed
 
   const CORNERS = [
     { x:BOX_X-tL,       y:BOX_Y-tT,       vx: BS, vy: BS },
@@ -155,7 +161,9 @@ import { Application, Container, Graphics, Sprite, Assets, ColorMatrixFilter } f
   function updateBudget(){ budgetEl.textContent=`$${budget}`; }
 
   // ── Bounce counter (slot-machine style, below the box) ───────────
-  const DIGIT_H = 90;
+  const DIGIT_H = Math.round(90 * Math.min(1, BASE_SCALE * 1.4));
+  const DIGIT_FONT = Math.round(66 * Math.min(1, BASE_SCALE * 1.4));
+  const REEL_W = Math.round(60 * Math.min(1, BASE_SCALE * 1.4));
   const bounceCounterEl = el('div',
     `position:fixed;left:50%;top:${BOX_Y+BOX_H+16}px;` +
     'transform:translateX(-50%);display:flex;gap:6px;z-index:200;pointer-events:none'
@@ -163,12 +171,12 @@ import { Application, Container, Graphics, Sprite, Assets, ColorMatrixFilter } f
 
   function makeReel() {
     const outer = el('div',
-      `width:60px;height:${DIGIT_H}px;overflow:hidden;position:relative;` +
+      `width:${REEL_W}px;height:${DIGIT_H}px;overflow:hidden;position:relative;` +
       'background:#000;border:2px solid #333;border-radius:4px'
     );
     const inner = el('div',
       `position:absolute;top:0;left:0;width:100%;transition:transform 0.12s ease;` +
-      `font:bold 66px monospace;color:white;text-align:center`
+      `font:bold ${DIGIT_FONT}px monospace;color:white;text-align:center`
     );
     for(let i=0;i<=9;i++){
       const d=el('div',`height:${DIGIT_H}px;line-height:${DIGIT_H}px`);
@@ -188,7 +196,7 @@ import { Application, Container, Graphics, Sprite, Assets, ColorMatrixFilter } f
     BOX_X = (app.screen.width  - BOX_W) / 2;
     BOX_Y = NAV_H + (app.screen.height - NAV_H - BOX_H) / 2;
     boxG.clear();
-    boxG.rect(BOX_X, BOX_Y, BOX_W, BOX_H).fill({ color: 0x000000 });
+    boxG.rect(BOX_X, BOX_Y, BOX_W, BOX_H).fill({ color: 0x000000 }).stroke({ color: 0xffffff, width: 2 });
     bounceCounterEl.style.top = `${BOX_Y + BOX_H + 16}px`;
   });
 
@@ -300,10 +308,12 @@ import { Application, Container, Graphics, Sprite, Assets, ColorMatrixFilter } f
     span.textContent=v;
   });
 
-  // Sidebar toggle — open by default
-  let sOpen=true;
-  document.getElementById('sidebar-wrapper').style.transform='translateX(280px)';
-  document.getElementById('stog').textContent='◀';
+  // Sidebar toggle — open by default on desktop, closed on mobile
+  let sOpen = app.screen.width >= 640;
+  if (sOpen) {
+    document.getElementById('sidebar-wrapper').style.transform='translateX(280px)';
+    document.getElementById('stog').textContent='◀';
+  }
   document.getElementById('stog').addEventListener('click', function(){
     sOpen=!sOpen;
     document.getElementById('sidebar-wrapper').style.transform=sOpen?'translateX(280px)':'';
